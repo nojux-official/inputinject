@@ -8,17 +8,21 @@ def on_press(key):
     try:
         print('alphanumeric key {0} pressed'.format(
             key.char))
-        requests.get(ADDRESS + "press", params={"key": key})
-
+        requests.get(ADDRESS + "press", params={"key": key.char})
     except AttributeError:
         print('special key {0} pressed'.format(
             key))
         requests.get(ADDRESS + "press", params={"key": key_to_special(key), "special": "true"})
 
 def on_release(key):
-    print('{0} released'.format(
-        key))
-    requests.get(ADDRESS + "release", params={"key": key})
+    try:
+        print('alphanumeric key {0} released'.format(
+            key.char))
+        requests.get(ADDRESS + "release", params={"key": key.char})
+    except AttributeError:
+        print('special key {0} released'.format(
+            key))
+        requests.get(ADDRESS + "release", params={"key": key_to_special(key), "special": "true"})
     if key == keyboard.Key.esc:
         # Stop listener
         return False
