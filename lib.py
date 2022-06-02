@@ -7,7 +7,7 @@ def special_to_key(special):
         return None
 
 def key_to_special(key):
-    for k, v in Key.items():
+    for k, v in Key.__members__.items():
         if(v == key):
-            return k.name
+            return k
     return None
