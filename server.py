@@ -26,14 +26,9 @@ def get_key():
     except Exception:
         is_special = False
     
-    try:
-        key = request.args.get('key')
-    except Exception:
-        return '{"status": "Error", "error": "Missing \\"key\\" parameter."}'
+    key = request.args.get('key')
     
     if(is_special): key = special_to_key(key)
-
-    if(key == None): return '{"status": "Error", "error": "Invalid \\"key\\" parameter."}'
 
     return key
 
