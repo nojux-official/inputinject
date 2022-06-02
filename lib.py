@@ -9,5 +9,5 @@ def special_to_key(special):
 def key_to_special(key):
     for k, v in Key.items():
         if(v == key):
-            return k
+            return k.name
     return None
