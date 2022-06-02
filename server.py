@@ -20,11 +20,7 @@ def index():
 
 # KEYBOARD
 
-
-
-
-@app.route('/press')
-def press():
+def get_key():
     try:
         is_special = True if request.args.get("special") == "true" else False
     except Exception:
@@ -34,42 +30,29 @@ def press():
         key = request.args.get('key')
     except Exception:
         return '{"status": "Error", "error": "Missing \\"key\\" parameter."}'
-
+    
     if(is_special): key = special_to_key(key)
+
+    return key
+
+
+@app.route('/press')
+def press():
+    key = get_key()
 
     keyboard.press(key)
     return '{"status": "OK"}'
 
 @app.route('/release')
 def release():
-    try:
-        is_special = True if request.args.get("special") == "true" else False
-    except Exception:
-        is_special = False
-    
-    try:
-        key = request.args.get('key')
-    except Exception:
-        return '{"status": "Error", "error": "Missing \\"key\\" parameter."}'
-
-    if(is_special): key = special_to_key(key)
+    key = get_key()
 
     keyboard.release(key)
     return '{"status": "OK"}'
 
 @app.route('/pr')
 def pr():
-    try:
-        is_special = True if request.args.get("special") == "true" else False
-    except Exception:
-        is_special = False
-    
-    try:
-        key = request.args.get('key')
-    except Exception:
-        return '{"status": "Error", "error": "Missing \\"key\\" parameter."}'
-
-    if(is_special): key = special_to_key(key)
+    key = get_key()
 
     keyboard.press(key)
     keyboard.release(key)
