@@ -33,6 +33,8 @@ def get_key():
     
     if(is_special): key = special_to_key(key)
 
+    if(key == None): return '{"status": "Error", "error": "Invalid \\"key\\" parameter."}'
+
     return key
 
 
@@ -53,7 +55,7 @@ def release():
 @app.route('/pr')
 def pr():
     key = get_key()
-
+    
     keyboard.press(key)
     keyboard.release(key)
     return '{"status": "OK"}'
