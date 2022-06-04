@@ -36,3 +36,4 @@ listener.start()
 
 while True:
     sleep(0.1)
+    if(not listener.running): exit()
