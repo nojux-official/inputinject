@@ -1,12 +1,5 @@
-from pynput.keyboard import Controller as kController
-from pynput.mouse import Button, Controller as mController
-from flask import Flask, request
-from lib import special_to_key
-
-
-keyboard = kController()
-mouse = mController()
-
+from flask import Flask
+import routes.keyboard
 
 app = Flask(__name__)
 
@@ -19,53 +12,8 @@ app = Flask(__name__)
 def index():
     return "Ready!"
 
-
 # KEYBOARD
-
-def get_key():
-    try:
-        is_special = True if request.args.get("special") == "true" else False
-    except Exception:
-        is_special = False
-    
-    key = request.args.get('key')
-    
-    if(is_special): key = special_to_key(key)
-
-    return key
-
-
-@app.route('/keyboard/press')
-def press():
-    key = get_key()
-
-    keyboard.press(key)
-    return '{"status": "OK"}'
-
-@app.route('/keyboard/release')
-def release():
-    key = get_key()
-
-    keyboard.release(key)
-    return '{"status": "OK"}'
-
-@app.route('/keyboard/pr')
-def pr():
-    key = get_key()
-    
-    keyboard.press(key)
-    keyboard.release(key)
-    return '{"status": "OK"}'
-
-@app.route('/keyboard/type')
-def type():
-    try:
-        text = request.args.get('text')
-    except Exception:
-        return '{"status": "Error", "error": "Missing \\"type\\" parameter."}'
-
-    keyboard.type(text)
-    return '{"status": "OK"}'
+app.register_blueprint(routes.keyboard.hub, url_prefix="/keyboard")
 
 # MOUSE
 
