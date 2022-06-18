@@ -1,5 +1,6 @@
 from flask import Flask
 import routes.keyboard
+import routes.mouse
 
 app = Flask(__name__)
 
@@ -16,7 +17,7 @@ def index():
 app.register_blueprint(routes.keyboard.hub, url_prefix="/keyboard")
 
 # MOUSE
-
+app.register_blueprint(routes.mouse.hub, url_prefix="/mouse")
 
 
 #start flask server
