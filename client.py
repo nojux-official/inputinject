@@ -5,7 +5,7 @@ from time import sleep
 
 ADDRESS = "http://10.42.0.92:5000/"
 
-def on_press(key):
+def on_key_press(key):
     try:
         print('alphanumeric key {0} pressed'.format(
             key.char))
@@ -15,7 +15,7 @@ def on_press(key):
             key))
         requests.get(ADDRESS + "keyboard/press", params={"key": key_to_special(key), "special": "true"})
 
-def on_release(key):
+def on_key_release(key):
     try:
         print('alphanumeric key {0} released'.format(
             key.char))
@@ -29,11 +29,11 @@ def on_release(key):
         return False
 
 # Collect events until released
-listener = keyboard.Listener(
-    on_press=on_press,
-    on_release=on_release)
-listener.start()
+k_listener = keyboard.Listener(
+    on_press=on_key_press,
+    on_release=on_key_release)
+k_listener.start()
 
 while True:
     sleep(0.1)
-    if(not listener.running): exit()
+    if(not k_listener.running): exit()
