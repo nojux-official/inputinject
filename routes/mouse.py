@@ -79,7 +79,7 @@ def move():
     except Exception:
         relative = False
     
-    (x, y) = get_xy
+    (x, y) = get_xy()
 
     if(relative): mouse.move(x, y)
     else: mouse.position = (x, y)
