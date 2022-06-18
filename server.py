@@ -1,9 +1,11 @@
-from pynput.keyboard import Controller
+from pynput.keyboard import Controller as kController
+from pynput.mouse import Button, Controller as mController
 from flask import Flask, request
 from lib import special_to_key
 
 
-keyboard = Controller()
+keyboard = kController()
+mouse = mController()
 
 
 app = Flask(__name__)
@@ -33,21 +35,21 @@ def get_key():
     return key
 
 
-@app.route('/press')
+@app.route('/keyboard/press')
 def press():
     key = get_key()
 
     keyboard.press(key)
     return '{"status": "OK"}'
 
-@app.route('/release')
+@app.route('/keyboard/release')
 def release():
     key = get_key()
 
     keyboard.release(key)
     return '{"status": "OK"}'
 
-@app.route('/pr')
+@app.route('/keyboard/pr')
 def pr():
     key = get_key()
     
@@ -55,7 +57,7 @@ def pr():
     keyboard.release(key)
     return '{"status": "OK"}'
 
-@app.route('/type')
+@app.route('/keyboard/type')
 def type():
     try:
         text = request.args.get('text')
