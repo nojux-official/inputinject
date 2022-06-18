@@ -19,10 +19,13 @@ def press():
     except Exception:
         pass
     
-    button = special_to_button(
-        request.args.get("button")
-    )
-        
+    if("button" in request.args):
+        button = special_to_button(
+            request.args.get("button")
+        )
+    else:
+        button = Button.left
+    
     mouse.press(button)
         
     return '{"status": "OK"}'
@@ -34,9 +37,12 @@ def release():
     except Exception:
         pass
     
-    button = special_to_button(
-        request.args.get("button")
-    )
+    if("button" in request.args):
+        button = special_to_button(
+            request.args.get("button")
+        )
+    else:
+        button = Button.left
         
     mouse.release(button)
     
@@ -49,9 +55,13 @@ def click():
     except Exception:
         pass
 
-    button = special_to_button(
-        request.args.get("button")
-    )
+    if("button" in request.args):
+        button = special_to_button(
+            request.args.get("button")
+        )
+    else:
+        button = Button.left
+    
         
     mouse.press(button)
     mouse.release(button)
