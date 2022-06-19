@@ -73,4 +73,4 @@ m_listener.start()
 while True:
     sleep(0.1)
     if(not k_listener.running): exit()
-    if(not k_listener.running): exit()
+    if(not m_listener.running): exit()
