@@ -62,6 +62,11 @@ def on_scroll(x, y, dx, dy):
     requests.get(ADDRESS + "mouse/scroll", params={"x": x, "y": y, "dx": dx, "dy": dy})
 
 
+#MISC
+
+def get_server_resolution():
+    r = requests.get(ADDRESS + "resolution")
+    return r.json()["resolution"] # something like "1680x1050"
 
 #LISTENERS
 
@@ -77,6 +82,8 @@ m_listener = mouse.Listener(
     suppress=SUPPRESS_MOUSE)
 
 if __name__ == "__main__":
+    SERVER_RESOLUTION = special_to_resolution(get_server_resolution())
+
     k_listener.start()
     m_listener.start()
     while True:
