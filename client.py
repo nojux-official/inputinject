@@ -3,11 +3,13 @@ from pickle import TRUE
 from pynput import keyboard, mouse
 import requests
 from lib import key_to_special
+from lib import special_to_resolution, resolution_to_special
 from time import sleep
 
 ADDRESS = "http://10.42.0.92:5000/"
 SUPPRESS_MOUSE = True
 SUPPRESS_KEYBOARD = True
+CLIENT_RESOLUTION = special_to_resolution("1280x800")
 
 
 #KEYBOARD
