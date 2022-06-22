@@ -69,16 +69,17 @@ k_listener = keyboard.Listener(
     on_press=on_key_press,
     on_release=on_key_release,
     suppress=SUPPRESS_KEYBOARD)
-k_listener.start()
 
 m_listener = mouse.Listener(
     on_move=on_mouse_move,
     on_click=on_button_click,
     on_scroll=on_scroll,
     suppress=SUPPRESS_MOUSE)
-m_listener.start()
 
-while True:
-    sleep(0.1)
-    if(not k_listener.running): exit()
-    if(not m_listener.running): exit()
+if __name__ == "__main__":
+    k_listener.start()
+    m_listener.start()
+    while True:
+        sleep(0.1)
+        if(not k_listener.running): exit()
+        if(not m_listener.running): exit()
