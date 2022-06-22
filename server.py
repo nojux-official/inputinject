@@ -2,6 +2,8 @@ from flask import Flask
 import routes.keyboard
 import routes.mouse
 
+SERVER_RESOLUTION = "1680x1050"
+
 app = Flask(__name__)
 
 #app.opts = {}
@@ -12,6 +14,10 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return "Ready!"
+
+@app.route("/resolution")
+def resolution():
+    return '{"status": "OK", "resolution": "' + SERVER_RESOLUTION + '"}'
 
 # KEYBOARD
 app.register_blueprint(routes.keyboard.hub, url_prefix="/keyboard")
