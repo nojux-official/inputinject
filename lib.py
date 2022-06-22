@@ -24,3 +24,9 @@ def button_to_special(button):
         if(v == button):
             return k
     return None
+
+def special_to_resolution(special):
+    return tuple(special.split("x"))
+
+def resolution_to_special(tupl):
+    return "x".join(tupl)
