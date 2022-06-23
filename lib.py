@@ -26,7 +26,10 @@ def button_to_special(button):
     return None
 
 def special_to_resolution(special):
-    return tuple(special.split("x"))
+    li = special.split("x")
+    li[0] = int(li[0])
+    li[1] = int(li[1])
+    return tuple(li)
 
 def resolution_to_special(tupl):
-    return "x".join(tupl)
+    return f'{tupl[0]}x{tupl[1]}'
