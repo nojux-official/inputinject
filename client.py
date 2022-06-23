@@ -41,11 +41,13 @@ def on_key_release(key):
 #MOUSE
 
 def on_mouse_move(x, y):
+    (x, y) = pos_proportion((x, y))
     print('Pointer moved to {0}'.format(
         (x, y)))
     requests.get(ADDRESS + "mouse/move", params={"x": x, "y": y})
 
 def on_button_click(x, y, button, pressed):
+    (x, y) = pos_proportion((x, y))
     print('{0} at {1}'.format(
         'Pressed' if pressed else 'Released',
         (x, y)))
@@ -56,6 +58,7 @@ def on_button_click(x, y, button, pressed):
         requests.get(ADDRESS + "mouse/release", params={"x": x, "y": y})
 
 def on_scroll(x, y, dx, dy):
+    (x, y) = pos_proportion((x, y))
     print('Scrolled {0} at {1}'.format(
         'down' if dy < 0 else 'up',
         (x, y)))
@@ -67,6 +70,10 @@ def on_scroll(x, y, dx, dy):
 def get_server_resolution():
     r = requests.get(ADDRESS + "resolution")
     return r.json()["resolution"] # something like "1680x1050"
+
+def pos_proportion(pos):
+    return (int(round(pos[0] / CLIENT_RESOLUTION[0] * SERVER_RESOLUTION[0])),
+        int(round(pos[1] / CLIENT_RESOLUTION[1] * SERVER_RESOLUTION[1])))
 
 #LISTENERS
 
